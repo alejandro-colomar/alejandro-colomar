@@ -1,3 +1,3 @@
-[submodule "www.alejandro-colomar"]
-	path = www.alejandro-colomar
-	url = https://github.com/alejandro-colomar/www.alejandro-colomar.git
+[submodule "www"]
+	path = www
+	url = https://github.com/alejandro-colomar/www.git

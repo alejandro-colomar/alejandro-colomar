@@ -1,3 +1,6 @@
 [submodule "www"]
 	path = www
 	url = https://github.com/alejandro-colomar/www.git
+[submodule "dns"]
+	path = dns
+	url = https://github.com/alejandro-colomar/dns.git

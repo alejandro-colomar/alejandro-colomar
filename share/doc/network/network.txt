@@ -1,0 +1,24 @@
+				IP: ext.	int.		MAC:			uSD color	Eth. color
+.
+└── modem
+    └── router0			170.253.59.176	192.168.0.1	?			-		White
+        │
+        ├── router1		192.168.10.254	10.168.1.1	?			-		Gray
+        │   │|
+        │   ├── switch0		-		-		-			-		Black
+        │   ││  ├── gui0	10.168.10.50	-		DC:A6:32:B1:83:9B	Black		White
+        │   ││  ├── manager0	10.168.10.200	-		?			Red		Orange
+        │   ││  └── worker0	10.168.10.100	-		?			Green		Blue
+        │   ││
+        │   ├── switch1		-		-		-			-		Black
+        │   ││  ├── [gui1]	10.168.11.50	-		?			Black		White
+        │   ││  ├── manager1	10.168.11.200	-		?			Red		Orange
+        │   ││  └── worker1	10.168.11.100	-		DC:A6:32:B1:83:B0	Green		Blue
+        │   ││
+        │   └── switch2		-		-		-			-		Black
+        │       ├── [gui2]	10.168.12.50	-		?			Black		White
+        │       ├── manager2	10.168.12.200	-		?			Red		Orange
+        │       └── worker2	10.168.12.100	-		?			Green		Blue
+        │
+        ├── router2		192.168.20.254	192.168.2.1	?			-		Black
+        └── router3		192.168.30.254 	192.168.3.1	?			-		Black

@@ -4,68 +4,7 @@
 #        SPDX-License-Identifier:  GPL-2.0-only                                #
 ################################################################################
 
-configs:
-    named:
-        file: /run/configs/etc/bind/named.conf
-    nginx_conf:
-        file: /run/configs/etc/nginx/nginx.conf
-    nginx_conf_security_parameters:
-        file: /run/configs/etc/nginx/conf.d/security_parameters.conf
-    nginx_conf_server:
-        file: /run/configs/etc/nginx/conf.d/server.conf
-
-secrets:
-    forward:
-        file: /run/secrets/var/bind/master/alejandro-colomar.es
-    reverse:
-        file: /run/secrets/var/bind/master/10.168
-
 services:
-    dns:
-        configs:
-        -
-            mode: 0440
-            source: named
-            target: /etc/bind/named.conf
-        deploy:
-            mode: global
-        image: "alejandrocolomar/bind:1.0.6"
-        ports:
-        -   "5353:53/udp"
-        secrets:
-        -
-            mode: 0440
-            source: forward
-            target: var/bind/master/alejandro-colomar.es
-        -
-            mode: 0440
-            source: reverse
-            target: var/bind/master/10.168
-
-    www:
-        configs:
-        -
-            mode: 0440
-            source: nginx_conf
-            target: /etc/nginx/nginx.conf
-        -
-            mode: 0440
-            source: nginx_conf_security_parameters
-            target: /etc/nginx/conf.d/security_parameters.conf
-        -
-            mode: 0440
-            source: nginx_conf_server
-            target: /etc/nginx/conf.d/server.conf
-        deploy:
-            placement:
-                constraints:
-                -   node.role == worker
-            replicas: 3
-            restart_policy:
-                condition: any
-        image: "alejandrocolomar/www:0.12"
-        ports:
-        -   30001:80
 
 version: "3.8"
 

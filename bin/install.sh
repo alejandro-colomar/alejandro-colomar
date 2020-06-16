@@ -1,5 +1,5 @@
 #!/bin/bash -x
-##	./bin/prepare_os.sh
+##	./bin/install.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
@@ -34,8 +34,8 @@ ARGC=0;
 function main()
 {
 
-	./bin/install/docker
-	./bin/install/git
+	./bin/install/docker.sh;
+	./bin/install/git.sh;
 }
 
 

@@ -29,7 +29,7 @@ ARGC=0;
 function install_git()
 {
 
-	apt-get install -y git
+	apt-get install -y git;
 }
 
 
@@ -39,7 +39,7 @@ function install_git()
 function main()
 {
 
-	install_git
+	install_git;
 }
 
 

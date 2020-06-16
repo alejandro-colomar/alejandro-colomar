@@ -4,3 +4,6 @@
 [submodule "dns"]
 	path = dns
 	url = https://github.com/alejandro-colomar/dns.git
+[submodule "nlb"]
+	path = nlb
+	url = https://github.com/alejandro-colomar/nlb.git

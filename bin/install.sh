@@ -34,7 +34,7 @@ ARGC=0;
 function main()
 {
 
-	./bin/install/docker.sh;
+	./bin/install/docker.sh						&& \
 	./bin/install/git.sh;
 }
 

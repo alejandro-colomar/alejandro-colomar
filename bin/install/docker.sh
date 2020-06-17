@@ -40,7 +40,7 @@ function uninstall_old_versions()
 function prepare_https()
 {
 
-	apt-get update
+	apt-get update							&& \
 	apt-get install -y						\
 			apt-transport-https				\
 			ca-certificates					\
@@ -52,7 +52,7 @@ function prepare_https()
 function add_docker_gpg_key()
 {
 
-	curl -fsSL https://download.docker.com/linux/ubuntu/gpg |apt-key add - ;
+	curl -fsSL https://download.docker.com/linux/ubuntu/gpg |apt-key add - && \
 	apt-key fingerprint 0EBFCD88;
 }
 
@@ -68,19 +68,19 @@ function add_docker_repository()
 function set_up_repository()
 {
 
-	prepare_https;
-	add_docker_gpg_key;
+	prepare_https							&& \
+	add_docker_gpg_key						&& \
 	add_docker_repository;
 }
 
 function install_docker_engine()
 {
 
-	apt-get update;
+	apt-get update							&& \
 	apt-get install -y						\
 			docker-ce					\
 			docker-ce-cli					\
-			containerd.io;
+			containerd.io					&& \
 	## Test the installation
 	docker run --rm hello-world;
 }
@@ -98,9 +98,9 @@ function add_user_to_docker_group()
 function main()
 {
 
-	uninstall_old_versions;
-	set_up_repository;
-	install_docker_engine;
+	uninstall_old_versions						&& \
+	set_up_repository						&& \
+	install_docker_engine						&& \
 	add_user_to_docker_group;
 }
 

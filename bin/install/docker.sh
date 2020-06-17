@@ -98,7 +98,7 @@ function add_user_to_docker_group()
 function main()
 {
 
-	uninstall_old_versions						&& \
+	uninstall_old_versions;
 	set_up_repository						&& \
 	install_docker_engine						&& \
 	add_user_to_docker_group;

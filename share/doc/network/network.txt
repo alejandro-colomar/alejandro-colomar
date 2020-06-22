@@ -3,22 +3,22 @@
 └── modem
     └── router0			170.253.59.176	192.168.0.1	?			-		White
         │
-        ├── router1		192.168.10.254	10.168.1.1	?			-		Gray
+        ├── router1		192.168.10.254	10.168.1.1	?			-		White
         │   │|
-        │   ├── switch0		-		-		-			-		Black
+        │   ├── switch0		-		-		-			-		?
         │   ││  ├── gui0	10.168.10.50	-		DC:A6:32:B1:83:9B	Black		Orange
         │   ││  ├── manager0	10.168.10.200	-		DC:A6:32:B1:83:3E	Red		Orange
         │   ││  └── worker0	10.168.10.100	-		DC:A6:32:B1:4D:3B	Green		Orange
         │   ││
-        │   ├── switch1		-		-		-			-		Black
-        │   ││  ├── [gui1]	10.168.10.51	-		[?]			Black		White
-        │   ││  ├── manager1	10.168.10.201	-		?			Red		Orange
+        │   ├── switch1		-		-		-			-		?
+        │   ││  ├── [gui1]	10.168.10.51	-		[?]			Black		Blue
+        │   ││  ├── manager1	10.168.10.201	-		DC:A6:32:B1:83:24	Red		Blue
         │   ││  └── worker1	10.168.10.101	-		DC:A6:32:B1:83:B0	Green		Blue
         │   ││
-        │   └── switch2		-		-		-			-		Black
-        │       ├── [gui2]	10.168.10.52	-		[?]			Black		White
-        │       ├── manager2	10.168.10.202	-		?			Red		Orange
-        │       └── worker2	10.168.10.102	-		DC:A6:32:B1:83:32	Green		Blue
+        │   └── switch2		-		-		-			-		?
+        │       ├── [gui2]	10.168.10.52	-		[?]			Black		Gray
+        │       ├── manager2	10.168.10.202	-		DC:A6:32:B1:83:38	Red		Gray
+        │       └── worker2	10.168.10.102	-		DC:A6:32:B1:83:32	Green		Gray
         │
-        ├── router2		192.168.20.254	192.168.2.1	?			-		Black
-        └── router3		192.168.30.254 	192.168.3.1	?			-		Black
+        ├── router2		192.168.20.254	192.168.2.1	?			-		?
+        └── router3		192.168.30.254 	192.168.3.1	?			-		?

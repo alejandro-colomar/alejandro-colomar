@@ -23,3 +23,9 @@ script prepares the OS to be able to run this server.
 
 
 ________________________________________________________________________________
+
+In the subrepositories you will find scripts to deploy those.  Their
+READMEs explain in detail how to use them.
+
+
+________________________________________________________________________________

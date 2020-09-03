@@ -35,7 +35,7 @@ function main()
 {
 
 	./bin/install/docker.sh						&& \
-	./bin/install/git.sh;
+	apt-get install -y git;
 }
 
 

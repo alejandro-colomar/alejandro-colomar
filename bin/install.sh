@@ -1,5 +1,5 @@
 #!/bin/bash -x
-##	./bin/install.sh
+##	sudo ./bin/install.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
@@ -15,6 +15,10 @@
 ##	source								      ##
 ################################################################################
 source	lib/libalx/sh/sysexits.sh;
+
+source	lib/server/install/docker.sh;
+source	lib/server/install/git.sh;
+source	lib/server/install/kubernetes.sh;
 
 
 ################################################################################
@@ -34,8 +38,9 @@ ARGC=0;
 function main()
 {
 
-	./bin/install/docker.sh						&& \
-	apt-get install -y git;
+	install_docker						&& \
+	install_git						&& \
+	install_kubernetes;
 }
 
 

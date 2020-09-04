@@ -1,32 +1,23 @@
-#!/bin/bash -x
-##	./bin/install/docker.sh
 ################################################################################
-##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
-##	SPDX-License-Identifier:  GPL-2.0-only				      ##
-################################################################################
-##
-## Install docker
-## ==============
-##
+##      Copyright (C) 2020        Alejandro Colomar Andrés                    ##
+##      SPDX-License-Identifier:  GPL-2.0-only                                ##
 ################################################################################
 
 
 ################################################################################
 ##	source								      ##
 ################################################################################
-source	lib/libalx/sh/sysexits.sh;
 
 
 ################################################################################
 ##	definitions							      ##
 ################################################################################
-ARGC=0;
 
 
 ################################################################################
 ##	functions							      ##
 ################################################################################
-function uninstall_old_versions()
+function dk_uninstall_old_versions__()
 {
 
 	apt-get purge -y						\
@@ -37,7 +28,7 @@ function uninstall_old_versions()
 			runc;
 }
 
-function prepare_https()
+function dk_prepare_https__()
 {
 
 	apt-get update							&& \
@@ -49,14 +40,14 @@ function prepare_https()
 			software-properties-common;
 }
 
-function add_docker_gpg_key()
+function dk_add_docker_gpg_key__()
 {
 
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg |apt-key add - && \
 	apt-key fingerprint 0EBFCD88;
 }
 
-function add_docker_repository()
+function dk_add_docker_repository__()
 {
 
 	add-apt-repository						\
@@ -65,15 +56,15 @@ function add_docker_repository()
 			stable";
 }
 
-function set_up_repository()
+function dk_set_up_repository__()
 {
 
-	prepare_https							&& \
-	add_docker_gpg_key						&& \
-	add_docker_repository;
+	dk_prepare_https__						&& \
+	dk_add_docker_gpg_key__						&& \
+	dk_add_docker_repository__;
 }
 
-function install_docker_engine()
+function dk_install_docker_engine__()
 {
 
 	apt-get update							&& \
@@ -85,36 +76,20 @@ function install_docker_engine()
 	docker run --rm hello-world;
 }
 
-function add_user_to_docker_group()
+function dk_add_user_to_docker_group__()
 {
 
 	usermod -a -G docker ubuntu;
 }
 
-
-################################################################################
-##	main								      ##
-################################################################################
-function main()
+function install_docker()
 {
 
-	uninstall_old_versions;
-	set_up_repository						&& \
-	install_docker_engine						&& \
-	add_user_to_docker_group;
+	dk_uninstall_old_versions__;
+	dk_set_up_repository__						&& \
+	dk_install_docker_engine__					&& \
+	dk_add_user_to_docker_group__;
 }
-
-
-################################################################################
-##	run								      ##
-################################################################################
-argc=$#;
-if [ ${argc} -ne ${ARGC} ]; then
-	echo	"Illegal number of parameters (Requires ${ARGC})";
-	exit	${EX_USAGE};
-fi
-
-main;
 
 
 ################################################################################

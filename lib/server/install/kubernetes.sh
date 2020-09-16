@@ -55,8 +55,8 @@ function kube_install_kubernetes__()
 
 	apt-get update							&& \
 	apt-get install -y						\
-			kubeadm					\
-			kubectl					\
+			kubeadm						\
+			kubectl						\
 			kubelet;
 }
 

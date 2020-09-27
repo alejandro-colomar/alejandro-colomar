@@ -17,6 +17,7 @@
 source	lib/libalx/sh/sysexits.sh;
 
 source	lib/server/install/docker.sh;
+source	lib/server/install/etc.sh;
 source	lib/server/install/git.sh;
 source	lib/server/install/kubernetes.sh;
 
@@ -40,7 +41,8 @@ function main()
 
 	install_docker						&& \
 	install_git						&& \
-	install_kubernetes;
+	install_kubernetes					&& \
+	copy_etc;
 }
 
 

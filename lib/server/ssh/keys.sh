@@ -56,8 +56,6 @@ function create_ssh_keys()
 			ssh-keygen -t rsa -b 4096;
 		END_SSH
 	done
-
-	unset SSHPASS;
 }
 
 function distribute_ssh_keys_to()
@@ -66,14 +64,10 @@ function distribute_ssh_keys_to()
 #	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
 	accessible_machines="$1";
 
-	export SSHPASS;
-
 	for machine in ${accessible_machines}; do
 		local	remote="${remote_user}@${machine}";
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote};
 	done
-
-	unset SSHPASS;
 }
 
 function distribute_ssh_keys_from()
@@ -87,15 +81,15 @@ function distribute_ssh_keys_from()
 		local	remote="${remote_user}@${machine}";
 		sshpass -e ssh ${remote} <<-'END_SSH'
 			$(declare -fg);
+			export SSHPASS;
 			distribute_ssh_keys_to	"${accessible_machines}";
+			unset SSHPASS;
 		END_SSH
 	done
 }
 
 function distribute_ssh_keys()
 {
-
-	export SSHPASS;
 
 	distribute_ssh_keys_from "${guis}" "${gui_accessible_machines}";
 	distribute_ssh_keys_from "${managers}" "${manager_accessible_machines}";
@@ -108,8 +102,6 @@ function distribute_ssh_keys()
 			secure_ssh;
 		END_SSH
 	done
-
-	unset SSHPASS;
 }
 
 function secure_ssh()
@@ -122,8 +114,6 @@ function create_distribute_ssh_keys()
 {
 
 	read_ssh_password;
-
-	export SSHPASS;
 
 	create_ssh_keys;
 	distribute_ssh_keys;

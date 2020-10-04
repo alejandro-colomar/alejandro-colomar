@@ -1,5 +1,5 @@
 #!/bin/bash -x
-##	sudo ./bin/install.sh
+##	sudo ./bin/install_software.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
@@ -17,7 +17,6 @@
 source	lib/libalx/sh/sysexits.sh;
 
 source	lib/server/install/docker.sh;
-source	lib/server/install/etc.sh;
 source	lib/server/install/git.sh;
 source	lib/server/install/kubernetes.sh;
 
@@ -43,8 +42,7 @@ function main()
 	apt-get upgrade --yes						&& \
 	install_docker							&& \
 	install_git							&& \
-	install_kubernetes						&& \
-	copy_etc;
+	install_kubernetes;
 }
 
 

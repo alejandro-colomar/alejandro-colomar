@@ -39,9 +39,11 @@ ARGC=0;
 function main()
 {
 
-	install_docker						&& \
-	install_git						&& \
-	install_kubernetes					&& \
+	apt-get update							&& \
+	apt-get upgrade --yes						&& \
+	install_docker							&& \
+	install_git							&& \
+	install_kubernetes						&& \
 	copy_etc;
 }
 

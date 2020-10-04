@@ -39,12 +39,12 @@ worker_accessible_machines="${workers}";
 function read_ssh_password()
 {
 
-echo	"This script will set up keyless ssh."
-echo	"After this script, ssh will not accept passwords again."
-echo	"Enter the current password for ssh connections."
+	echo	"This script will set up keyless ssh."
+	echo	"After this script, ssh will not accept passwords again."
+	echo	"Enter the current password for ssh connections."
 
-read -s -p "Password to use: " SSHPASS;
-export SSHPASS;
+	read -s -p "Password to use: " SSHPASS;
+	export SSHPASS;
 }
 
 function create_ssh_keys()
@@ -60,9 +60,9 @@ function create_ssh_keys()
 
 function distribute_ssh_keys_to()
 {
-#	ssh_opts="-o PreferredAuthentications=keyboard-interactive";
+	local	accessible_machines="$1";
+#	local	ssh_opts="-o PreferredAuthentications=keyboard-interactive";
 #	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
-	accessible_machines="$1";
 
 	for machine in ${accessible_machines}; do
 		local	remote="${remote_user}@${machine}";
@@ -74,8 +74,8 @@ function distribute_ssh_keys_from()
 {
 #	ssh_opts="-o PreferredAuthentications=keyboard-interactive";
 #	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
-	machines="$1";
-	accessible_machines="$2";
+	local	machines="$1";
+	local	accessible_machines="$2";
 
 	for machine in ${machines}; do
 		local	remote="${remote_user}@${machine}";

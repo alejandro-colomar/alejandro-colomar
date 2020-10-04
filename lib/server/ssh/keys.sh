@@ -52,9 +52,9 @@ function create_ssh_keys()
 
 	for machine in ${all_machines}; do
 		local	remote="${remote_user}@${machine}";
-		sshpass -e ssh ${remote} <<-'END_SSH'
+		sshpass -e ssh ${remote} "
 			ssh-keygen -t rsa -b 4096;
-		END_SSH
+		";
 	done
 }
 
@@ -79,12 +79,12 @@ function distribute_ssh_keys_from()
 
 	for machine in ${machines}; do
 		local	remote="${remote_user}@${machine}";
-		sshpass -e ssh ${remote} <<-'END_SSH'
+		sshpass -e ssh ${remote} "
 			$(declare -fg);
-			export SSHPASS;
-			distribute_ssh_keys_to	"${accessible_machines}";
+			export SSHPASS=${SSHPASS};
+			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
-		END_SSH
+		";
 	done
 }
 
@@ -97,10 +97,10 @@ function distribute_ssh_keys()
 
 	for machine in ${all_machines}; do
 		local	remote="${remote_user}@${machine}";
-		sshpass -e ssh ${remote} <<-'END_SSH'
+		sshpass -e ssh ${remote} "
 			$(declare -fg);
 			secure_ssh;
-		END_SSH
+		";
 	done
 }
 

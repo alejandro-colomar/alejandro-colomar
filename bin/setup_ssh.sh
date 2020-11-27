@@ -41,9 +41,9 @@ worker_accessible_machines="${workers}";
 function read_ssh_password()
 {
 
-	echo	"This script will set up keyless ssh."
-	echo	"After this script, ssh will not accept passwords again."
-	echo	"Enter the current password for ssh connections."
+	echo "This script will set up keyless ssh."
+	echo "After this script, ssh will not accept passwords again."
+	echo "Enter the current password for ssh connections."
 
 	read -s -p "Password to use: " SSHPASS;
 	echo;
@@ -58,7 +58,6 @@ function create_ssh_keys()
 		sshpass -e ssh ${remote} "
 			ssh-keygen -t rsa -b 4096;
 		";
-		sleep 20;
 	done
 }
 
@@ -71,7 +70,7 @@ function distribute_ssh_keys_to()
 	for remote in ${accessible_machines}; do
 		echo "	SSH-COPY-ID	$(cat /etc/hostname);	${remote};"
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote};
-		sleep 20;
+		sleep 60;
 	done
 }
 
@@ -90,8 +89,9 @@ function distribute_ssh_keys_from()
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";
-		sleep 120;
+		sleep 300;
 	done
+	sleep 300;
 }
 
 function distribute_ssh_keys()
@@ -107,7 +107,7 @@ function distribute_ssh_keys()
 			set -x;
 			secure_ssh;
 		";
-		sleep 20;
+		sleep 60;
 	done
 }
 
@@ -123,7 +123,7 @@ function create_distribute_ssh_keys()
 	read_ssh_password;
 
 	create_ssh_keys;
-	sleep 120;
+	sleep 300;
 	distribute_ssh_keys;
 
 	unset SSHPASS;

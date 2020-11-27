@@ -1,4 +1,5 @@
 #!/bin/bash
+set -Eeo pipefail
 ##	./bin/setup_ssh.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
@@ -57,7 +58,7 @@ function create_ssh_keys()
 	for remote in ${all_machines}; do
 		echo "	SSH-KEYGEN	${remote};"
 		sshpass -e ssh ${ssh_opts} ${remote} "
-			ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -P '';
+			ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -P '' ||:;
 		";
 	done
 }
@@ -81,6 +82,7 @@ function distribute_ssh_keys_from()
 
 	for remote in ${machines}; do
 		sshpass -e ssh -n ${ssh_opts} ${remote} "
+			set -Eeo pipefail
 			$(declare -fg);
 			export SSHPASS=${SSHPASS};
 			distribute_ssh_keys_to	\"${accessible_machines}\";

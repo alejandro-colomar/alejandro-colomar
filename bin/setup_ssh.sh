@@ -1,5 +1,5 @@
 #!/bin/bash -x
-##	./bin/install_ssh_keys.sh
+##	./bin/setup_ssh.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##

@@ -1,13 +1,8 @@
 #!/bin/bash -x
-##	sudo ./bin/install_software.sh
+##	sudo ./bin/install_kubernetes.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
-################################################################################
-##
-## Prepare the OS for deployment of alejandro-colomar.es
-## =====================================================
-##
 ################################################################################
 
 
@@ -16,9 +11,7 @@
 ################################################################################
 source	lib/libalx/sh/sysexits.sh;
 
-source	lib/server/install/docker.sh;
-source	lib/server/install/git.sh;
-source	lib/server/install/kubernetes.sh;
+source	lib/server/software/kubernetes.sh;
 
 
 ################################################################################
@@ -40,8 +33,6 @@ function main()
 
 	apt-get update							&& \
 	apt-get upgrade --yes						&& \
-	install_docker							&& \
-	install_git							&& \
 	install_kubernetes;
 }
 

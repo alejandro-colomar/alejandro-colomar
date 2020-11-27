@@ -4,11 +4,6 @@
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
 ################################################################################
-##
-## Prepare the OS for deployment of alejandro-colomar.es
-## =====================================================
-##
-################################################################################
 
 
 ################################################################################
@@ -34,7 +29,9 @@ ARGC=0;
 function main()
 {
 
-	apt-get install -y git;
+	apt-get update;
+	apt-get install --yes --verbose-versions			\
+			git;
 }
 
 

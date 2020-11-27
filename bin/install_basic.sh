@@ -17,7 +17,6 @@
 source	lib/libalx/sh/sysexits.sh;
 
 source	lib/server/network/etc.sh;
-source	lib/server/ssh/install.sh;
 
 
 ################################################################################
@@ -29,6 +28,13 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
+function install_ssh()
+{
+
+	apt-get install --yes --verbose-versions			\
+			openssh-server					\
+			sshpass;
+}
 
 
 ################################################################################
@@ -38,7 +44,7 @@ function main()
 {
 
 	apt-get update;
-	apt-get upgrade --yes;
+	apt-get upgrade --yes --verbose-versions;
 	copy_etc;
 	install_ssh;
 }

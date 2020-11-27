@@ -68,7 +68,7 @@ function distribute_ssh_keys_to()
 #	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
 
 	for remote in ${accessible_machines}; do
-		echo "	SSH-COPY-ID	$(cat /etc/hostname);	${remote};"
+		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote};
 		sleep 60;
 	done

@@ -40,8 +40,7 @@ function read_ssh_password()
 function create_ssh_keys()
 {
 
-	for machine in ${all_machines}; do
-		local	remote="${remote_user}@${machine}";
+	for remote in ${all_machines}; do
 		sshpass -e ssh ${remote} "
 			ssh-keygen -t rsa -b 4096;
 		";
@@ -54,8 +53,7 @@ function distribute_ssh_keys_to()
 #	local	ssh_opts="-o PreferredAuthentications=keyboard-interactive";
 #	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
 
-	for machine in ${accessible_machines}; do
-		local	remote="${remote_user}@${machine}";
+	for remote in ${accessible_machines}; do
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote};
 	done
 }
@@ -67,8 +65,7 @@ function distribute_ssh_keys_from()
 	local	machines="$1";
 	local	accessible_machines="$2";
 
-	for machine in ${machines}; do
-		local	remote="${remote_user}@${machine}";
+	for remote in ${machines}; do
 		sshpass -e ssh ${remote} "
 			$(declare -fg);
 			export SSHPASS=${SSHPASS};
@@ -86,8 +83,7 @@ function distribute_ssh_keys()
 	distribute_ssh_keys_from "${managers}" "${manager_accessible_machines}";
 	distribute_ssh_keys_from "${workers}" "${worker_accessible_machines}";
 
-	for machine in ${all_machines}; do
-		local	remote="${remote_user}@${machine}";
+	for remote in ${all_machines}; do
 		sshpass -e ssh ${remote} "
 			$(declare -fg);
 			set -x;

@@ -70,6 +70,7 @@ function distribute_ssh_keys_from()
 			$(declare -fg);
 			export SSHPASS=${SSHPASS};
 			set -x;
+			cat /etc/hostname;
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";

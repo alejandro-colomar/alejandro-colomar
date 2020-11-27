@@ -24,7 +24,6 @@ source	lib/libalx/sh/sysexits.sh;
 ################################################################################
 ARGC=0;
 
-remote_user="ubuntu";
 guis="gui0";
 managers="manager0 manager1 manager2";
 workers="worker0 worker1 worker2";
@@ -70,7 +69,7 @@ function distribute_ssh_keys_to()
 	for remote in ${accessible_machines}; do
 		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote}	\
-		2>&1 | grep -e WARNING -e added;
+		2>&1 | grep -e WARNING -e ERROR -e added;
 		sleep 60;
 	done
 }
@@ -104,7 +103,6 @@ function distribute_ssh_keys()
 	for remote in ${all_machines}; do
 		ssh ${remote} "
 			$(declare -fg);
-			set -x;
 			secure_ssh;
 		";
 		sleep 60;

@@ -107,7 +107,7 @@ function distribute_ssh_keys()
 function secure_ssh()
 {
 
-	## TODO
+	:; ## TODO
 }
 
 function create_distribute_ssh_keys()

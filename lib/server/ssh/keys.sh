@@ -84,7 +84,7 @@ function distribute_ssh_keys()
 	distribute_ssh_keys_from "${workers}" "${worker_accessible_machines}";
 
 	for remote in ${all_machines}; do
-		sshpass -e ssh ${remote} "
+		ssh ${remote} "
 			$(declare -fg);
 			set -x;
 			secure_ssh;

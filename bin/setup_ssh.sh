@@ -24,13 +24,15 @@ source	lib/libalx/sh/sysexits.sh;
 ################################################################################
 ARGC=0;
 
-guis="gui0";
-managers="manager0 manager1 manager2";
-workers="worker0 worker1 worker2";
-all_machines="${guis} ${managers} ${workers}";
+guis=(gui0);
+managers=(manager0 manager1 manager2);
+workers=(worker0 worker1 worker2);
+all_machines="${guis[@]} ${managers[@]} ${workers[@]}";
 gui_accessible_machines="${all_machines}";
-manager_accessible_machines="${managers} ${workers}";
-worker_accessible_machines="${workers}";
+manager_accessible_machines="${managers[@]} ${workers[@]}";
+worker_accessible_machines="${workers[@]}";
+
+ssh_opts='-o StrictHostKeyChecking=no';
 
 
 ################################################################################
@@ -54,8 +56,8 @@ function create_ssh_keys()
 
 	for remote in ${all_machines}; do
 		echo "	SSH-KEYGEN	${remote};"
-		sshpass -e ssh ${remote} "
-			ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa;
+		sshpass -e ssh ${ssh_opts} ${remote} "
+			ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -P '';
 		";
 	done
 }
@@ -63,34 +65,28 @@ function create_ssh_keys()
 function distribute_ssh_keys_to()
 {
 	local	accessible_machines="$1";
-#	local	ssh_opts="-o PreferredAuthentications=keyboard-interactive";
-#	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
 
 	for remote in ${accessible_machines}; do
 		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
-		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote}	\
-		2>&1 | grep -e WARNING -e ERROR -e added;
-		sleep 60;
+		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${ssh_opts}	\
+					${remote}			\
+		2>&1 | grep -e WARNING -e ERROR -e 'Number of key(s) added:';
 	done
 }
 
 function distribute_ssh_keys_from()
 {
-#	ssh_opts="-o PreferredAuthentications=keyboard-interactive";
-#	ssh_opts="${ssh_opts} -o PubkeyAuthentication=no";
 	local	machines="$1";
 	local	accessible_machines="$2";
 
 	for remote in ${machines}; do
-		sshpass -e ssh ${remote} "
+		sshpass -e ssh -n ${ssh_opts} ${remote} "
 			$(declare -fg);
 			export SSHPASS=${SSHPASS};
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";
-		sleep 300;
 	done
-	sleep 300;
 }
 
 function distribute_ssh_keys()
@@ -101,11 +97,10 @@ function distribute_ssh_keys()
 	distribute_ssh_keys_from "${workers}" "${worker_accessible_machines}";
 
 	for remote in ${all_machines}; do
-		ssh ${remote} "
+		ssh -n ${remote} "
 			$(declare -fg);
 			secure_ssh;
 		";
-		sleep 60;
 	done
 }
 
@@ -119,9 +114,7 @@ function create_distribute_ssh_keys()
 {
 
 	read_ssh_password;
-
 	create_ssh_keys;
-	sleep 300;
 	distribute_ssh_keys;
 
 	unset SSHPASS;

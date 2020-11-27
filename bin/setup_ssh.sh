@@ -56,7 +56,7 @@ function create_ssh_keys()
 	for remote in ${all_machines}; do
 		echo "	SSH-KEYGEN	${remote};"
 		sshpass -e ssh ${remote} "
-			ssh-keygen -t rsa -b 4096;
+			ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa;
 		";
 	done
 }

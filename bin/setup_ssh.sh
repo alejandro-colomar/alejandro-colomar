@@ -71,7 +71,7 @@ function distribute_ssh_keys_to()
 		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${ssh_opts}	\
 					${remote}			\
-		2>&1 | grep -e WARNING -e ERROR -e 'Number of key(s) added:';
+		2>&1 | grep -e WARNING -e ERROR;
 	done
 }
 

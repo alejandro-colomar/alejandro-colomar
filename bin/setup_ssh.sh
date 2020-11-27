@@ -28,10 +28,10 @@ ARGC=0;
 guis=(gui0);
 managers=(manager0 manager1 manager2);
 workers=(worker0 worker1 worker2);
-all_machines="${guis[@]} ${managers[@]} ${workers[@]}";
+all_machines="${guis[*]} ${managers[*]} ${workers[*]}";
 gui_accessible_machines="${all_machines}";
-manager_accessible_machines="${managers[@]} ${workers[@]}";
-worker_accessible_machines="${workers[@]}";
+manager_accessible_machines="${managers[*]} ${workers[*]}";
+worker_accessible_machines="${workers[*]}";
 
 ssh_opts='-o StrictHostKeyChecking=no';
 
@@ -95,9 +95,9 @@ function distribute_ssh_keys_from()
 function distribute_ssh_keys()
 {
 
-	distribute_ssh_keys_from "${guis}" "${gui_accessible_machines}";
-	distribute_ssh_keys_from "${managers}" "${manager_accessible_machines}";
-	distribute_ssh_keys_from "${workers}" "${worker_accessible_machines}";
+	distribute_ssh_keys_from "${guis[*]}" "${gui_accessible_machines}";
+	distribute_ssh_keys_from "${managers[*]}" "${manager_accessible_machines}";
+	distribute_ssh_keys_from "${workers[*]}" "${worker_accessible_machines}";
 
 	for remote in ${all_machines}; do
 		ssh -n ${remote} "

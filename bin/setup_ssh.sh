@@ -69,7 +69,8 @@ function distribute_ssh_keys_to()
 
 	for remote in ${accessible_machines}; do
 		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
-		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote};
+		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote}	\
+		2>&1 | grep -e WARNING -e added;
 		sleep 60;
 	done
 }
@@ -85,7 +86,6 @@ function distribute_ssh_keys_from()
 		sshpass -e ssh ${remote} "
 			$(declare -fg);
 			export SSHPASS=${SSHPASS};
-			cat /etc/hostname;
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";

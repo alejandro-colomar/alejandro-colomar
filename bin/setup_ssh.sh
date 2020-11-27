@@ -84,7 +84,8 @@ function distribute_ssh_keys_from()
 		sshpass -e ssh -n ${ssh_opts} ${remote} "
 			set -Eeo pipefail
 			$(declare -fg);
-			export SSHPASS=${SSHPASS};
+			export SSHPASS=\"${SSHPASS}\";
+			ssh_opts=\"${ssh_opts}\";
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";

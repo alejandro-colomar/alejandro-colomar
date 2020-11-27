@@ -13,19 +13,9 @@
 ##	definitions							      ##
 ################################################################################
 remote_user="ubuntu";
-guis="
-	gui0
-";
-managers="
-	manager0
-	manager1
-	manager2
-";
-workers="
-	worker0
-	worker1
-	worker2
-";
+guis="gui0";
+managers="manager0 manager1 manager2";
+workers="worker0 worker1 worker2";
 all_machines="${guis} ${managers} ${workers}";
 gui_accessible_machines="${all_machines}";
 manager_accessible_machines="${managers} ${workers}";

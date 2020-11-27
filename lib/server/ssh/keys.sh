@@ -44,6 +44,7 @@ function create_ssh_keys()
 		sshpass -e ssh ${remote} "
 			ssh-keygen -t rsa -b 4096;
 		";
+		sleep 20;
 	done
 }
 
@@ -55,6 +56,7 @@ function distribute_ssh_keys_to()
 
 	for remote in ${accessible_machines}; do
 		sshpass -e ssh-copy-id -i ~/.ssh/id_rsa.pub ${remote};
+		sleep 20;
 	done
 }
 
@@ -74,6 +76,7 @@ function distribute_ssh_keys_from()
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";
+		sleep 120;
 	done
 }
 
@@ -90,6 +93,7 @@ function distribute_ssh_keys()
 			set -x;
 			secure_ssh;
 		";
+		sleep 20;
 	done
 }
 
@@ -105,6 +109,7 @@ function create_distribute_ssh_keys()
 	read_ssh_password;
 
 	create_ssh_keys;
+	sleep 120;
 	distribute_ssh_keys;
 
 	unset SSHPASS;

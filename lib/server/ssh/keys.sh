@@ -82,6 +82,7 @@ function distribute_ssh_keys_from()
 		sshpass -e ssh ${remote} "
 			$(declare -fg);
 			export SSHPASS=${SSHPASS};
+			set -x;
 			distribute_ssh_keys_to	\"${accessible_machines}\";
 			unset SSHPASS;
 		";
@@ -99,6 +100,7 @@ function distribute_ssh_keys()
 		local	remote="${remote_user}@${machine}";
 		sshpass -e ssh ${remote} "
 			$(declare -fg);
+			set -x;
 			secure_ssh;
 		";
 	done

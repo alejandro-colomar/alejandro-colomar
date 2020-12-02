@@ -8,7 +8,7 @@
 ## Configure glusterfs network
 ## ===========================
 ##
-##	Run this script from a guiX or masterX machine
+##	Run this script from a guiX machine
 ##
 ################################################################################
 
@@ -16,7 +16,8 @@
 ################################################################################
 ##	source								      ##
 ################################################################################
-source	lib/libalx/sh/sysexits.sh;
+.	lib/libalx/sh/sysexits.sh;
+.	etc/server/machines.sh;
 
 
 ################################################################################
@@ -24,28 +25,10 @@ source	lib/libalx/sh/sysexits.sh;
 ################################################################################
 ARGC=0;
 
-remote_user="ubuntu";
-workers="
-	worker0
-	worker1
-	worker2
-";
-
 
 ################################################################################
 ##	functions							      ##
 ################################################################################
-function probe_peers()
-{
-	for machine in ${workers}; do
-		local	remote="${remote_user}@${machine}";
-		ssh ${remote} "
-			for peer in ${workers}; do
-				sudo gluster peer probe \${peer};
-			done
-		";
-	done
-}
 
 
 ################################################################################
@@ -53,8 +36,15 @@ function probe_peers()
 ################################################################################
 function main()
 {
+	for remote in ${workers}; do
+		ssh ${remote} "
+			for peer in ${workers}; do
+				sudo gluster peer probe \${peer};
+			done
+		";
+	done
 
-	probe_peers;
+	ssh ${workers[0]} gluster pool list;
 }
 
 

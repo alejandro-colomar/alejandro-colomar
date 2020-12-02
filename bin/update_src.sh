@@ -38,6 +38,7 @@ ARGC=0;
 function main()
 {
 	for remote in ${all_machines}; do
+		echo "	UPDATE	${remote}";
 		ssh -n ${remote} "
 			cd /usr/local/src/server/;
 			sudo git fetch;

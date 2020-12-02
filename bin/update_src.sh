@@ -41,8 +41,8 @@ function main()
 		echo "	UPDATE	${remote}";
 		ssh -n ${remote} "
 			cd /usr/local/src/server/;
-			sudo git fetch;
-			sudo git checkout origin/main;
+			git fetch;
+			git checkout origin/main;
 		";
 	done
 }

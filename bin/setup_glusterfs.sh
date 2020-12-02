@@ -1,4 +1,5 @@
-#!/bin/bash -Euo pipefail
+#!/bin/bash
+set -Eeo pipefail
 ##	./bin/setup_glusterfs.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##

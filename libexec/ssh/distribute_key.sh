@@ -1,25 +1,16 @@
 #!/bin/bash
 set -Eeo pipefail
-##	./bin/setup_ssh.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
-################################################################################
-##
-## Configure ssh network
-## =====================
-##
-##	Run this script from a guiX machine
-##
 ################################################################################
 
 
 ################################################################################
 ##	source								      ##
 ################################################################################
-.	lib/libalx/sh/sysexits.sh;
-.	etc/server/machines.sh;
-.	etc/server/ssh.sh;
+.	/usr/local/src/server/lib/libalx/sh/sysexits.sh;
+.	/usr/local/src/server/etc/server/ssh.sh;
 
 
 ################################################################################
@@ -31,39 +22,6 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
-## XXX: Pair calls to this function with "unset SSHPASS"!!!
-function read_ssh_password()
-{
-
-	echo "This script will set up keyless ssh."
-	echo "After this script, ssh will not accept passwords again."
-	echo "Enter the current password for ssh connections."
-
-	read -s -p "Password to use: " SSHPASS;
-	echo;
-	export SSHPASS;
-}
-
-function distribute_ssh_keys()
-{
-	for remote in ${all_machines}; do
-		sshpass -e \
-		ssh -n ${ssh_opts} ${remote} "
-			export SSHPASS=\"${SSHPASS}\";
-			/usr/local/src/server/libexec/ssh/distribute_key.sh;
-			unset SSHPASS;
-		";
-	done
-}
-
-function secure_ssh()
-{
-	for remote in ${all_machines}; do
-		ssh -n ${remote} "
-			## TODO;
-		";
-	done
-}
 
 
 ################################################################################
@@ -71,12 +29,24 @@ function secure_ssh()
 ################################################################################
 function main()
 {
-	read_ssh_password;
-	/usr/local/src/server/libexec/ssh/gen_keys.sh;
-	distribute_ssh_keys;
-	secure_ssh;
+	case $(cat /etc/hostname) in
+	gui?)
+		local	remotes="${gui_accessible_machines}";
+		;;
+	manager?)
+		local	remotes="${manager_accessible_machines}";
+		;;
+	worker?)
+		local	remotes="${worker_accessible_machines}";
+		;;
+	esac
 
-	unset SSHPASS;
+	for remote in ${remotes}; do
+		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
+		sshpass -e \
+		ssh-copy-id -i ~/.ssh/id_rsa.pub ${ssh_opts} ${remote}	\
+		2>&1 | { grep -e WARNING -e ERROR ||:; };
+	done
 }
 
 

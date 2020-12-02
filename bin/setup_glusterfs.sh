@@ -1,4 +1,4 @@
-#!/bin/bash -x
+#!/bin/bash -Euo pipefail
 ##	./bin/setup_glusterfs.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
@@ -36,9 +36,9 @@ ARGC=0;
 ################################################################################
 function main()
 {
-	for remote in ${workers}; do
+	for remote in ${workers[*]}; do
 		ssh ${remote} "
-			for peer in ${workers}; do
+			for peer in ${workers[*]}; do
 				sudo gluster peer probe \${peer};
 			done
 		";

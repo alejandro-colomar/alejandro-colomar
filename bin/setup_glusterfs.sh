@@ -48,7 +48,7 @@ function main()
 	done
 
 	echo "	POOL";
-	ssh ${workers[0]} gluster pool list;
+	ssh ${workers[0]} sudo gluster pool list;
 }
 
 

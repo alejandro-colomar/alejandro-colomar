@@ -37,13 +37,16 @@ ARGC=0;
 function main()
 {
 	for remote in ${workers[*]}; do
+		echo "	SSH	${remote}";
 		ssh ${remote} "
 			for peer in ${workers[*]}; do
+				echo \"	PROBE	\${peer}\";
 				sudo gluster peer probe \${peer};
 			done
 		";
 	done
 
+	echo "	POOL";
 	ssh ${workers[0]} gluster pool list;
 }
 

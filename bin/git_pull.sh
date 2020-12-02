@@ -38,10 +38,12 @@ ARGC=0;
 function main()
 {
 	for remote in ${all_machines}; do
-		echo "	UPDATE	${remote}";
+		echo "	SSH	${remote}";
 		ssh -n ${remote} "
 			cd /usr/local/src/server/;
+			echo '	GIT fetch';
 			git fetch;
+			echo '	GIT checkout';
 			git checkout origin/main;
 		";
 	done

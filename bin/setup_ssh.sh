@@ -47,6 +47,7 @@ function read_ssh_password()
 function distribute_ssh_keys()
 {
 	for remote in ${all_machines}; do
+		echo "	SSH	${remote}";
 		sshpass -e \
 		ssh -n ${ssh_opts} ${remote} "
 			export SSHPASS=\"${SSHPASS}\";
@@ -59,6 +60,7 @@ function distribute_ssh_keys()
 function secure_ssh()
 {
 	for remote in ${all_machines}; do
+		echo "	SSH	${remote}";
 		ssh -n ${remote} "
 			/usr/local/src/server/libexec/ssh/secure_ssh.sh;
 		";

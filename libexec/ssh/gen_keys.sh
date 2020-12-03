@@ -31,9 +31,10 @@ ARGC=0;
 function main()
 {
 	for remote in ${all_machines}; do
-		echo "	SSH-KEYGEN	${remote};"
+		echo "	SSH	${remote}"
 		sshpass -e \
 		ssh ${ssh_opts} ${remote} "
+			echo \"	SSH-KEYGEN\";
 			ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa -P '' ||:;
 		";
 	done

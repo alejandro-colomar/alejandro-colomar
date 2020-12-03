@@ -13,6 +13,9 @@ worker_accessible_machines="${workers[*]}";
 
 ssh_opts='-o StrictHostKeyChecking=no';
 
+ssh_allow_users='ubuntu';
+ssh_port='60022';
+
 
 ################################################################################
 ##	functions							      ##

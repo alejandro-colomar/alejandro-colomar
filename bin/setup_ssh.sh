@@ -62,7 +62,7 @@ function secure_ssh()
 	for remote in ${all_machines}; do
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
-			/usr/local/src/server/libexec/ssh/secure_ssh.sh;
+			sudo /usr/local/src/server/libexec/ssh/secure_ssh.sh;
 		";
 	done
 }

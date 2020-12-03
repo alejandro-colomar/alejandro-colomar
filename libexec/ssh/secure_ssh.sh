@@ -28,7 +28,7 @@ function sshd_config__x()
 	local	val="$2";
 	local	file="/etc/ssh/sshd_config";
 
-	echo "	${config}	${val}";
+	echo "	SSHD	${config}	${val}";
 	/usr/local/libexec/libalx/etc_config.sh	"${config}" "${val}" "${file}";
 
 }

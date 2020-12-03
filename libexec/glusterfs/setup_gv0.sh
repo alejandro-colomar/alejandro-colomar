@@ -28,6 +28,8 @@ ARGC=0;
 ################################################################################
 function main()
 {
+	echo "	MKDIR	/srv/glusterfs/vol0";
+	mkdir -p	/srv/glusterfs/vol0;
 	echo "	CHOWN	/srv/glusterfs/*";
 	chown -R root:root	/srv/glusterfs/vol0;
 	chown -R 1000:1000	/srv/glusterfs/gv0;

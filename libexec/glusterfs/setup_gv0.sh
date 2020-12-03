@@ -28,6 +28,9 @@ ARGC=0;
 ################################################################################
 function main()
 {
+	echo "	CHOWN	/srv/glusterfs/*";
+	chown -R root:root	/srv/glusterfs/vol0;
+	chown -R 1000:1000	/srv/glusterfs/gv0;
 	echo "	INSTALL	/etc/fstab";
 	install -T	/usr/local/src/server/etc/fstab		/etc/fstab;
 	echo "	MOUNT -a";

@@ -29,13 +29,6 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
-function install_ssh()
-{
-
-	apt-get install --yes --verbose-versions			\
-			openssh-server					\
-			sshpass;
-}
 
 
 ################################################################################
@@ -47,7 +40,10 @@ function main()
 	apt-get update;
 	apt-get upgrade --yes --verbose-versions;
 	copy_etc;
-	install_ssh;
+	apt-get install --yes --verbose-versions			\
+			make						\
+			openssh-server					\
+			sshpass;
 }
 
 

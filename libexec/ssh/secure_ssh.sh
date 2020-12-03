@@ -26,12 +26,9 @@ function sshd_config__x()
 {
 	local	config="$1";
 	local	val="$2";
+	local	file="/etc/ssh/sshd_config";
 
-	echo "	${config}	${val}";
-	sed -i	"/^[ \t#]*${config}/s/^.*$/${config} ${val}/"		\
-		/etc/ssh/sshd_config;
-	grep -q	"^${config} ${val}$" /etc/ssh/sshd_config		\
-	|| echo	"${config} ${val}" >> /etc/ssh/sshd_config;
+	/usr/local/libexec/libalx/etc_config.sh	"${config}" "${val}" "${file}";
 
 }
 

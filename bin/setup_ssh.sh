@@ -60,7 +60,7 @@ function secure_ssh()
 {
 	for remote in ${all_machines}; do
 		ssh -n ${remote} "
-			## TODO;
+			/usr/local/src/server/libexec/ssh/secure_ssh.sh;
 		";
 	done
 }

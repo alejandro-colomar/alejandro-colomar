@@ -41,7 +41,7 @@ function main()
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
 			echo '	GIT	-C libalx	fetch -p';
-			git -C /usr/local/src/libalx/ fetch -p;
+			git -C /usr/local/src/libalx/ fetch -p -q;
 			echo '	GIT	-C libalx	checkout origin/main';
 			git -C /usr/local/src/libalx/ checkout origin/main;
 		";

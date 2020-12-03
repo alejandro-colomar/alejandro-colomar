@@ -41,7 +41,7 @@ function main()
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
 			echo '	GIT	-C server	fetch -p';
-			git -C /usr/local/src/server/ fetch -p;
+			git -C /usr/local/src/server/ fetch -p -q;
 			echo '	GIT	-C server	checkout origin/main';
 			git -C /usr/local/src/server/ checkout origin/main;
 		";

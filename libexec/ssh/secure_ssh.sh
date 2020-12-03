@@ -22,14 +22,14 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
-function sshd_config__x()
+function sshd_config()
 {
-	local	config="$1";
+	local	key="$1";
 	local	val="$2";
 	local	file="/etc/ssh/sshd_config";
 
-	echo "	SSHD	${config}	${val}";
-	/usr/local/libexec/libalx/etc_config.sh	"${config}" "${val}" "${file}";
+	echo "	SSHD	config";
+	/usr/local/libexec/libalx/config_file.sh "${key}" "${val}" "${file}";
 
 }
 
@@ -39,11 +39,11 @@ function sshd_config__x()
 ################################################################################
 function main()
 {
-	sshd_config__x	'PermitEmptyPasswords'		'no';
-	sshd_config__x	'PermitRootLogin'		'no';
-	sshd_config__x	'PasswordAuthentication'	'no';
-	sshd_config__x	'AllowUsers'			"${ssh_allow_users}";
-	sshd_config__x	'PublicKeyAuthentication'	'yes';
+	sshd_config	'PermitEmptyPasswords'		'no';
+	sshd_config	'PermitRootLogin'		'no';
+	sshd_config	'PasswordAuthentication'	'no';
+	sshd_config	'AllowUsers'			"${ssh_allow_users}";
+	sshd_config	'PubkeyAuthentication'		'yes';
 	systemctl restart sshd;
 }
 

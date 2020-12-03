@@ -43,7 +43,6 @@ function main()
 	sshd_config__x	'PasswordAuthentication'	'no';
 	sshd_config__x	'AllowUsers'			"${ssh_allow_users}";
 	sshd_config__x	'PublicKeyAuthentication'	'yes';
-	sshd_config__x	'Port'				"${ssh_port}";
 }
 
 

@@ -1,0 +1,3 @@
+LABEL=writable     /                    ext4       defaults                            0  0
+LABEL=system-boot  /boot/firmware       vfat       defaults                            0  1
+localhost:/gv0     /srv/glusterfs/vol0  glusterfs  defaults,_netdev,uid=1000,gid=1000  0  0

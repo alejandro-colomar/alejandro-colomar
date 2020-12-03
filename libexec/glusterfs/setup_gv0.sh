@@ -1,24 +1,15 @@
 #!/bin/bash
 set -Eeo pipefail
-##	./bin/setup_glusterfs.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
-################################################################################
-##
-## Configure glusterfs network
-## ===========================
-##
-##	Run this script from a guiX machine
-##
 ################################################################################
 
 
 ################################################################################
 ##	source								      ##
 ################################################################################
-.	lib/libalx/sh/sysexits.sh;
-.	etc/server/machines.sh;
+.	/usr/local/src/server/lib/libalx/sh/sysexits.sh;
 
 
 ################################################################################
@@ -37,12 +28,10 @@ ARGC=0;
 ################################################################################
 function main()
 {
-	for remote in ${workers[*]}; do
-		echo "	SSH	${remote}";
-		ssh ${remote} "
-			sudo /usr/local/src/server/libexec//glusterfs/setup_gv0.sh;
-		";
-	done
+	echo "	INSTALL	/etc/fstab";
+	install -T	/usr/local/src/server/etc/fstab		/etc/fstab;
+	echo "	MOUNT -a";
+	mount -a; 
 }
 
 

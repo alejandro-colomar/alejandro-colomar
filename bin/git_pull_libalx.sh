@@ -40,10 +40,10 @@ function main()
 	for remote in ${all_machines}; do
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
-			echo '	GIT	-C server	fetch -p';
-			git -C /usr/local/src/server/ fetch -p;
-			echo '	GIT	-C server	checkout	origin/main';
-			git -C /usr/local/src/server/ checkout origin/main;
+			echo '	GIT	-C libalx	fetch -p';
+			git -C /usr/local/src/libalx/ fetch -p;
+			echo '	GIT	-C libalx	checkout	origin/main';
+			git -C /usr/local/src/libalx/ checkout origin/main;
 		";
 	done
 }

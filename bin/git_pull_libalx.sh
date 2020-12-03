@@ -37,13 +37,15 @@ ARGC=0;
 ################################################################################
 function main()
 {
+	local	repo='/usr/local/src/libalx';
+
 	for remote in ${all_machines}; do
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
 			echo '	GIT	-C libalx	fetch -p';
-			git -C /usr/local/src/libalx/ fetch -p -q;
+			git -C ${repo} fetch -p -q;
 			echo '	GIT	-C libalx	checkout origin/main';
-			git -C /usr/local/src/libalx/ checkout origin/main;
+			git -C ${repo} checkout origin/main;
 		";
 	done
 }

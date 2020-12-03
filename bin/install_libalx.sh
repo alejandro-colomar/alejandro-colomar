@@ -37,11 +37,12 @@ ARGC=0;
 ################################################################################
 function main()
 {
+	local	repo='/usr/local/src/libalx';
 
 	for remote in ${all_machines}; do
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
-			sudo make install-libexec install-sh -C ${libalx};
+			sudo make install-libexec install-sh -C ${repo};
 		";
 	done
 }

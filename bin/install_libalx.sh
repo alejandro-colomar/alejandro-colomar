@@ -42,6 +42,7 @@ function main()
 	for remote in ${all_machines}; do
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
+			sudo make uninstall -C ${repo};
 			sudo make install-libexec install-sh -C ${repo};
 		";
 	done

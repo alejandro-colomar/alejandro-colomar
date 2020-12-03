@@ -1,4 +1,5 @@
-#!/bin/bash -x
+#!/bin/bash
+set -Eeo pipefail;
 ##	sudo ./bin/install_basic.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
@@ -14,9 +15,9 @@
 ################################################################################
 ##	source								      ##
 ################################################################################
-source	lib/libalx/sh/sysexits.sh;
+.	lib/libalx/sh/sysexits.sh;
 
-source	lib/server/network/etc.sh;
+.	lib/server/network/etc.sh;
 
 
 ################################################################################

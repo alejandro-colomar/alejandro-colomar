@@ -10,7 +10,7 @@ set -Eeo pipefail
 ##	source								      ##
 ################################################################################
 .	/usr/local/src/server/lib/libalx/sh/sysexits.sh;
-.	/usr/locar/src/server/etc/server/ssh.sh;
+.	/usr/local/src/server/etc/server/ssh.sh;
 
 
 ################################################################################

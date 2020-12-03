@@ -44,6 +44,7 @@ function main()
 	sshd_config__x	'PasswordAuthentication'	'no';
 	sshd_config__x	'AllowUsers'			"${ssh_allow_users}";
 	sshd_config__x	'PublicKeyAuthentication'	'yes';
+	systemctl restart sshd;
 }
 
 

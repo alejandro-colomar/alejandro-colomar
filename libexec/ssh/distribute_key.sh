@@ -42,7 +42,7 @@ function main()
 	esac
 
 	for remote in ${remotes}; do
-		echo "	SSH-COPY-ID	$(cat /etc/hostname)	${remote};"
+		echo "	SSH-COPY-ID	${remote};"
 		sshpass -e \
 		ssh-copy-id -i ~/.ssh/id_rsa.pub ${ssh_opts} ${remote}	\
 		2>&1 | { grep -e WARNING -e ERROR ||:; };

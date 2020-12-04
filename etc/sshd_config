@@ -24,10 +24,8 @@ ClientAliveCountMax		3
 
 ClientAliveInterval		20
 Compression			yes
-#DebianBanner			no
 #DenyGroups
 #DenyUsers
-
 DisableForwarding
 FingerprintHash			sha256
 #ForceCommand
@@ -36,9 +34,6 @@ GSSAPIAuthentication		no
 
 GSSAPICleanupCredentials	yes
 GSSAPIStrictAcceptorCheck	yes
-GSSAPIKeyExchange		no
-
-GSSAPIStoreCredentialsOnRekey	no
 HostbasedAuthentication		no
 HostbasedUsesNameFromPacketOnly	no
 

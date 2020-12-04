@@ -24,6 +24,7 @@ ClientAliveCountMax		3
 
 ClientAliveInterval		20
 Compression			yes
+DebianBanner			no
 #DenyGroups
 #DenyUsers
 DisableForwarding
@@ -102,6 +103,7 @@ TCPKeepAlive			no
 
 TrustedUserCAKeys		none
 UseDNS				yes
+UsePAM				no
 VersionAddendum			none
 X11DisplayOffset		10
 X11Forwarding			no

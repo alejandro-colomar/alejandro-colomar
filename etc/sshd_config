@@ -1,0 +1,102 @@
+#AcceptEnv
+AddressFamily			inet
+AllowAgentForwarding		no
+#AllowGroups
+AllowStreamLocalForwarding	no
+
+AllowTcpForwarding		no
+AllowUsers			ubuntu
+AuthenticationMethods		publickey
+#AuthorizedKeysCommand
+#AuthorizedKeysCommandUser
+
+AuthorizedKeysFile		%h/.ssh/authorized_keys
+#AuthorizedPrincipalsCommand
+#AuthorizedPrincipalsCommandUser
+#AuthorizedPrincipalsFile
+Banner				none
+
+CASignatureAlgorithms		ssh-ed25519,rsa-sha2-512,rsa-sha2-256
+ChallengeResponseAuthentication	no
+#ChrootDirectory
+Ciphers				chacha20-poly1305@openssh.com
+ClientAliveCountMax		3
+
+ClientAliveInterval		20
+Compression			yes
+#DebianBanner			no
+#DenyGroups
+#DenyUsers
+
+DisableForwarding		yes
+FingerprintHash			sha256
+#ForceCommand
+GatewayPorts			no
+GSSAPIAuthentication		no
+
+GSSAPICleanupCredentials	yes
+GSSAPIStrictAcceptorCheck	yes
+GSSAPIKeyExchange		no
+
+GSSAPIStoreCredentialsOnRekey	no
+HostbasedAuthentication		no
+HostbasedUsesNameFromPacketOnly	no
+
+HostCertificate			/etc/ssh/ssh_host_rsa_key-cert.pub
+HostKey				/etc/ssh/ssh_host_rsa_key
+IgnoreRhosts			yes
+IgnoreUserKnownHosts		no
+IPQoS				lowdelay throughput
+
+KbdInteractiveAuthentication	no
+KerberosAuthentication		no
+KerberosOrLocalPasswd		no
+KerberosTicketCleanup		yes
+KeyRegenerationInterval		3600
+
+ListenAddress			0.0.0.0:22
+LoginGraceTime			60
+LogLevel			DEBUG3
+MaxAuthTries			3
+MaxSessions			3
+
+MaxStartups			3
+PasswordAuthentication		no
+PermitEmptyPasswords		no
+PermitOpen			none
+PermitRootLogin			no
+
+PermitTunnel			no
+PermitTTY			yes
+PermitUserEnvironment		no
+PermitUserRC			no
+PidFile				/var/run/sshd.pid
+
+PrintLastLog			no
+PrintMotd			yes
+Protocol			2
+PubkeyAuthentication		yes
+RekeyLimit			default 3600
+
+RhostsRSAAuthentication		no
+RSAAuthentication		yes
+ServerKeyBits			1024
+StreamLocalBindMask		0177
+StreamLocalBindUnlink		no
+
+StrictModes			yes
+Subsystem			sftp /usr/lib/openssh/sftp-server
+SyslogFacility			AUTH
+TCPKeepAlive			no
+TrustedUserCAKeys		/etc/ssh/key.pub
+
+UseDNS				yes
+UseLogin			no
+UsePAM				no
+UsePrivilegeSeparation		yes
+VersionAddendum			none
+
+X11DisplayOffset		10
+X11Forwarding			no
+X11UseLocalhost			yes
+XAuthLocation			/usr/bin/xauth

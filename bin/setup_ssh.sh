@@ -1,5 +1,6 @@
 #!/bin/bash
-set -Eeo pipefail
+set -Eeo pipefail;
+set +x;
 ##	./bin/setup_ssh.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
@@ -50,7 +51,7 @@ function distribute_ssh_keys()
 		echo "	SSH	${remote}";
 		sshpass -e \
 		ssh -n ${ssh_opts} ${remote} "
-			export SSHPASS=\"${SSHPASS}\";
+			export SSHPASS='${SSHPASS}';
 			/usr/local/src/server/libexec/ssh/distribute_key.sh;
 			unset SSHPASS;
 		";
@@ -62,7 +63,11 @@ function secure_ssh()
 	for remote in ${all_machines}; do
 		echo "	SSH	${remote}";
 		ssh -n ${remote} "
-			sudo /usr/local/src/server/libexec/ssh/secure_ssh.sh;
+			echo '${SSHPASS}'				\\
+			| sudo --stdin					\\
+				cp --remove-destination -vT		\\
+				/usr/local/src/server/etc/ssh/sshd_config \\
+				/etc/ssh/sshd_config;
 		";
 	done
 }

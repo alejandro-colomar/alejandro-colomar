@@ -1,5 +1,5 @@
 #!/bin/bash
-set -Eeo pipefail
+set -Eeo pipefail;
 ##	./bin/install_libalx.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
@@ -30,6 +30,33 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
+## XXX: Pair calls to this function with "unset SUDOPASS;"!!!
+function read_sudo_password()
+{
+
+	echo "Enter the password for sudo in remote machines."
+
+	read -s -p "Password to use: " SUDOPASS;
+	echo;
+}
+
+function install_libalx()
+{
+	local	repo='/usr/local/src/libalx';
+
+	for remote in ${all_machines}; do
+		echo "	SSH	${remote}";
+		ssh -n ${remote} "
+			echo '${SUDOPASS}'				\\
+			| sudo --stdin					\\
+				make uninstall -C '${repo}';
+			echo '${SUDOPASS}'				\\
+			| sudo --stdin					\\
+				make install-libexec install-sh -C '${repo}';
+		";
+	done
+}
+
 
 
 ################################################################################
@@ -37,15 +64,9 @@ ARGC=0;
 ################################################################################
 function main()
 {
-	local	repo='/usr/local/src/libalx';
-
-	for remote in ${all_machines}; do
-		echo "	SSH	${remote}";
-		ssh -n ${remote} "
-			sudo make uninstall -C ${repo};
-			sudo make install-libexec install-sh -C ${repo};
-		";
-	done
+	read_ssh_password;
+	install_libalx;
+	unset SUDOPASS;
 }
 
 

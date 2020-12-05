@@ -17,8 +17,6 @@ set -Eeo pipefail;
 ################################################################################
 .	lib/libalx/sh/sysexits.sh;
 
-.	lib/server/network/etc.sh;
-
 
 ################################################################################
 ##	definitions							      ##
@@ -39,7 +37,9 @@ function main()
 
 	apt-get update;
 	apt-get upgrade --yes --verbose-versions;
-	copy_etc;
+	cp --remove-destination -vT					\
+			/usr/local/src/server/etc/hosts			\
+			/etc/hosts;
 	apt-get install --yes --verbose-versions			\
 			make						\
 			openssh-server					\

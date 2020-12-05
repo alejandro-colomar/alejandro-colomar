@@ -1,0 +1,31 @@
+################################################################################
+#      Copyright (C) 2020        Sebastian Francisco Colomar Bauza             #
+#      SPDX-License-Identifier:  GPL-2.0-only                                  #
+################################################################################
+name: CI                                                                       #
+on:                                                                            #
+  pull_request:                                                                #
+    branches:                                                                  #
+    - main                                                                     #
+  push:                                                                        #
+    branches:                                                                  #
+    - main                                                                     #
+jobs:                                                                          #
+  sshd:                                                                        #
+    runs-on: ubuntu-18.04                                                      #
+    steps:                                                                     #
+    -                                                                          #
+      name: checkout                                                           #
+      uses: actions/checkout@v2                                                #
+    -                                                                          #
+      name: test                                                               #
+      run: |                                                                   #
+        set -x                                                                 ;
+                                                                               #
+        docker run -dt --name test ubuntu:18.04                                ;
+        docker exec test apt-get update                                        ;
+        docker exec test apt-get install -y openssh-server                     ;
+        docker cp etc/ssh/sshd_config test:/etc/ssh                            ;
+        docker exec test service ssh restart                                   ;
+        docker exec test service ssh status | grep "sshd is running"           ;
+################################################################################

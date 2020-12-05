@@ -102,7 +102,7 @@ SyslogFacility			AUTH
 TCPKeepAlive			no
 
 TrustedUserCAKeys		none
-UseDNS				yes
+UseDNS				no
 UsePAM				no
 VersionAddendum			none
 X11DisplayOffset		10

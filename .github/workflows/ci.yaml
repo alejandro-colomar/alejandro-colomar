@@ -23,6 +23,8 @@ jobs:                                                                          #
         set -x                                                                 ;
                                                                                #
         sudo apt-get install -y openssh-server                                 ;
+        sudo find /etc/ssh
+        find etc/ssh
         sudo cp -v etc/ssh/sshd_config /etc/ssh                                ;
         sudo service ssh restart                                               ;
         sudo service ssh status | grep "sshd is running"                       ;

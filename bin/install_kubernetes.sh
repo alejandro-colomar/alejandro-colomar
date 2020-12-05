@@ -1,4 +1,5 @@
-#!/bin/bash -x
+#!/bin/bash
+set -Eeo pipefail;
 ##	sudo ./bin/install_kubernetes.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##

@@ -30,6 +30,37 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
+## XXX: Pair calls to this function with "unset SUDOPASS;"!!!
+function read_sudo_password()
+{
+
+	echo "Enter the password for sudo in remote machines."
+
+	read -s -p "Password to use: " SUDOPASS;
+	echo;
+}
+
+function setup_glusterfs()
+{
+	for remote in ${workers[*]}; do
+		echo "	SSH	${remote}";
+		ssh ${remote} "
+			for peer in ${workers[*]}; do
+				echo \"	PROBE	\${peer}\";
+				echo '${SUDOPASS}'			\\
+				| sudo --stdin				\\
+					gluster peer probe \${peer};
+			done
+		";
+	done
+
+	echo "	POOL";
+	ssh ${workers[0]} "
+		echo '${SUDOPASS}'					\\
+		| sudo --stdin						\\
+			gluster pool list;
+	";
+}
 
 
 ################################################################################
@@ -37,18 +68,9 @@ ARGC=0;
 ################################################################################
 function main()
 {
-	for remote in ${workers[*]}; do
-		echo "	SSH	${remote}";
-		ssh ${remote} "
-			for peer in ${workers[*]}; do
-				echo \"	PROBE	\${peer}\";
-				sudo gluster peer probe \${peer};
-			done
-		";
-	done
-
-	echo "	POOL";
-	ssh ${workers[0]} sudo gluster pool list;
+	read_sudo_password;
+	setup_glusterfs;
+	unset SUDOPASS;
 }
 
 

@@ -84,7 +84,7 @@ PidFile				/var/run/sshd.pid
 PrintLastLog			no
 
 PrintMotd			yes
-PubkeyAcceptedKeyTypes		ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,sk-ssh-ed25519@openssh.com,rsa-sha2-512,rsa-sha2-256
+#PubkeyAcceptedKeyTypes		ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,sk-ssh-ed25519@openssh.com,rsa-sha2-512,rsa-sha2-256
 PubkeyAuthOptions		touch-required
 PubkeyAuthentication		yes
 RekeyLimit			default 3600

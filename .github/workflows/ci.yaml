@@ -1,0 +1,29 @@
+################################################################################
+#      Copyright (C) 2020        Sebastian Francisco Colomar Bauza             #
+#      SPDX-License-Identifier:  GPL-2.0-only                                  #
+################################################################################
+name: CI                                                                       #
+on:                                                                            #
+  pull_request:                                                                #
+    branches:                                                                  #
+    - main                                                                     #
+  push:                                                                        #
+    branches:                                                                  #
+    - main                                                                     #
+jobs:                                                                          #
+  docker:                                                                      #
+    runs-on: ubuntu-18.04                                                      #
+    steps:                                                                     #
+    -                                                                          #
+      name: checkout                                                           #
+      uses: actions/checkout@v2                                                #
+    -                                                                          #
+      name: test                                                               #
+      run: |                                                                   ;
+        set -x                                                                 #
+                                                                               ;
+        sudo apt-get install -y openssh-server                                 ;
+        sudo cp -v etc/ssh/sshd_config /etc/ssh                                ;
+        sudo service ssh restart                                               ;
+        sudo service ssh status | grep "sshd is running"                       ;
+################################################################################

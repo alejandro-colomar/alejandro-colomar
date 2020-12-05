@@ -22,10 +22,10 @@ jobs:                                                                          #
       run: |                                                                   #
         set -x                                                                 ;
                                                                                #
-        sudo apt-get install -y openssh-server                                 ;
-        sudo find /etc/ssh
-        find etc/ssh
-        sudo cp -v etc/ssh/sshd_config /etc/ssh                                ;
-        sudo service ssh restart                                               ;
-        sudo service ssh status | grep "sshd is running"                       ;
+        docker run -dt --name test ubuntu:18.04                                ;
+        docker exec test apt-get update                                        ;
+        docker exec test apt-get install -y openssh-server                     ;
+        docker cp etc/ssh/sshd_config test:/etc/ssh                            ;
+        docker exec test service ssh restart                                   ;
+        docker exec test service ssh status | grep "sshd is running"           ;
 ################################################################################

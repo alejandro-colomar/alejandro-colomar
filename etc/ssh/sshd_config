@@ -16,7 +16,7 @@ AuthorizedKeysFile		%h/.ssh/authorized_keys
 #AuthorizedPrincipalsFile
 Banner				none
 
-CASignatureAlgorithms		ssh-ed25519,rsa-sha2-512,rsa-sha2-256
+#CASignatureAlgorithms		ssh-ed25519,rsa-sha2-512,rsa-sha2-256
 ChallengeResponseAuthentication	no
 #ChrootDirectory
 Ciphers				chacha20-poly1305@openssh.com
@@ -27,7 +27,7 @@ Compression			yes
 DebianBanner			no
 #DenyGroups
 #DenyUsers
-DisableForwarding
+#DisableForwarding
 
 ExposeAuthInfo			no
 FingerprintHash			sha256

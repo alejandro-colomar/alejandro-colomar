@@ -15,13 +15,15 @@ set -Eeo pipefail;
 ################################################################################
 ##	source								      ##
 ################################################################################
-.	lib/libalx/sh/sysexits.sh;
+EX_USAGE=64;
 
 
 ################################################################################
 ##	definitions							      ##
 ################################################################################
 ARGC=0;
+
+user="ubuntu";
 
 
 ################################################################################
@@ -37,13 +39,21 @@ function main()
 
 	apt-get update;
 	apt-get upgrade --yes --verbose-versions;
-	cp --remove-destination -vT					\
-			/usr/local/src/server/etc/hosts			\
-			/etc/hosts;
 	apt-get install --yes --verbose-versions			\
-			make						\
-			openssh-server					\
-			sshpass;
+		git							\
+		make							\
+		openssh-server						\
+		sshpass;
+	chown -R ${user}:${user} /usr/local/src;
+	git clone							\
+		https://github.com/alejandro-colomar/libalx.git		\
+		/usr/local/src/libalx;
+	git clone							\
+		https://github.com/alejandro-colomar/server.git		\
+		/usr/local/src/server;
+	cp --remove-destination -vT					\
+		/usr/local/src/server/etc/hosts				\
+		/etc/hosts;
 }
 
 

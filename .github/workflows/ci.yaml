@@ -50,11 +50,11 @@ jobs:
             name: docker-run
             run: docker run -dt --name test ubuntu:20.04;
         -
-            name: cp repo
-            run: docker cp ./ test:/usr/local/src/server/;
+            name: cp install_basic.sh
+            run: docker cp ./bin/install_basic.sh test:./;
         -
-            name: ./bin/install_basic.sh
-            run: docker exec test /usr/local/src/server/bin/install_basic.sh;
+            name: run install_basic.sh
+            run: docker exec test bash ./install_basic.sh;
         -
             name: ./libexec/ssh/secure_ssh.sh
             run: docker exec test /usr/local/src/server/libexec/ssh/secure_ssh.sh;

@@ -53,7 +53,10 @@ jobs:
             run: docker run -dt --name test ubuntu:20.04;
         -
             name: Adapt install_basic.sh
-            run: sed -i '/^user=/s/=.*/="root";/' ./bin/install_basic.sh;
+            run: |
+                sed -i '/^user=/s/=.*/="root";/' ./bin/install_basic.sh;
+                sed -i '/cp --remove-destination/,/\/etc\/hosts;/d'     \
+                        ./bin/install_basic.sh;
         -
             name: cp install_basic.sh
             run: docker cp ./bin/install_basic.sh test:./;

@@ -1,31 +1,42 @@
 ################################################################################
-#      Copyright (C) 2020        Sebastian Francisco Colomar Bauza             #
-#      SPDX-License-Identifier:  GPL-2.0-only                                  #
+##      Copyright (C) 2020        Sebastian Francisco Colomar Bauza           ##
+##      Copyright (C) 2020        Alejandro Colomar Andrés                    ##
+##      SPDX-License-Identifier:  GPL-2.0-only                                ##
 ################################################################################
-name: CI                                                                       #
-on:                                                                            #
-  pull_request:                                                                #
-    branches:                                                                  #
-    - main                                                                     #
-  push:                                                                        #
-    branches:                                                                  #
-    - main                                                                     #
-jobs:                                                                          #
-  sshd:                                                                        #
-    runs-on: ubuntu-20.04                                                      #
-    steps:                                                                     #
-    -                                                                          #
-      name: checkout                                                           #
-      uses: actions/checkout@v2                                                #
-    -                                                                          #
-      name: test                                                               #
-      run: |                                                                   #
-        set -x                                                                 ;
-                                                                               #
-        docker run -dt --name test ubuntu:20.04                                ;
-        docker exec test apt-get update                                        ;
-        docker exec test apt-get install -y openssh-server                     ;
-        docker cp etc/ssh/sshd_config test:/etc/ssh                            ;
-        docker exec test service ssh restart                                   ;
-        docker exec test service ssh status | grep "sshd is running"           ;
+name: CI-push
+
+on:
+    pull_request:
+        branches:
+        -
+            main
+    push:
+        branches:
+        -
+            main
+jobs:
+    sshd:
+        runs-on: ubuntu-20.04
+        steps:
+        -
+            name: checkout
+            uses: actions/checkout@v2
+        -
+            name: docker-run
+            run: docker run -dt --name test ubuntu:20.04;
+        -
+            name: apt-get update
+            run: docker exec test apt-get update;
+        -
+            name: apt-get install openssh-server
+            run: docker exec test apt-get install -y openssh-server;
+        -
+            name: cp sshd_config
+            run: docker cp etc/ssh/sshd_config test:/etc/ssh;
+        -
+            name: service ssh restart
+            run: docker exec test service ssh restart;
+        -
+            name: service ssh status
+            run: docker exec test service ssh status | grep "sshd is running";
 ################################################################################

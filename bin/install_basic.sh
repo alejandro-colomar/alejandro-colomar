@@ -40,6 +40,7 @@ function main()
 	apt-get update;
 	apt-get upgrade --yes --verbose-versions;
 	apt-get install --yes --verbose-versions --no-install-recommends\
+		ca-certificates						\
 		git							\
 		make							\
 		openssh-server						\

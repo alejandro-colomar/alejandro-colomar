@@ -39,7 +39,7 @@ function main()
 
 	apt-get update;
 	apt-get upgrade --yes --verbose-versions;
-	apt-get install --yes --verbose-versions			\
+	apt-get install --yes --verbose-versions --no-install-recommends\
 		git							\
 		make							\
 		openssh-server						\

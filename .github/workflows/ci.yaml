@@ -29,7 +29,9 @@ jobs:
             run: docker exec test apt-get update;
         -
             name: apt-get install openssh-server
-            run: docker exec test apt-get install -y openssh-server;
+            run: |
+                docker exec test                                        \
+                    apt-get install -y --no-install-recommends openssh-server;
         -
             name: cp sshd_config
             run: docker cp etc/ssh/sshd_config test:/etc/ssh;

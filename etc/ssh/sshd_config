@@ -16,7 +16,7 @@ AuthorizedKeysFile		%h/.ssh/authorized_keys
 #AuthorizedPrincipalsFile
 Banner				none
 
-CASignatureAlgorithms		ssh-ed25519,rsa-sha2-512,rsa-sha2-256
+CASignatureAlgorithms		rsa-sha2-512,rsa-sha2-256
 ChallengeResponseAuthentication	no
 #ChrootDirectory
 Ciphers				chacha20-poly1305@openssh.com
@@ -37,14 +37,14 @@ GSSAPIAuthentication		no
 
 GSSAPICleanupCredentials	yes
 GSSAPIStrictAcceptorCheck	yes
-HostbasedAcceptedKeyTypes	ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,sk-ssh-ed25519@openssh.com,rsa-sha2-512,rsa-sha2-256
+HostbasedAcceptedKeyTypes	rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-256
 HostbasedAuthentication		no
 HostbasedUsesNameFromPacketOnly	no
 
 #HostCertificate
-HostKey				/etc/ssh/ssh_host_ed25519_key,/etc/ssh/ssh_host_rsa_key
+HostKey				/etc/ssh/ssh_host_rsa_key
 #HostKeyAgent
-#HostKeyAlgorithms		ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,sk-ssh-ed25519@openssh.com,rsa-sha2-512,rsa-sha2-256
+#HostKeyAlgorithms		rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-256
 IgnoreRhosts			yes
 
 IgnoreUserKnownHosts		no
@@ -84,7 +84,7 @@ PidFile				/var/run/sshd.pid
 PrintLastLog			no
 
 PrintMotd			yes
-PubkeyAcceptedKeyTypes		ssh-ed25519-cert-v01@openssh.com,sk-ssh-ed25519-cert-v01@openssh.com,rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,ssh-ed25519,sk-ssh-ed25519@openssh.com,rsa-sha2-512,rsa-sha2-256
+PubkeyAcceptedKeyTypes		rsa-sha2-512-cert-v01@openssh.com,rsa-sha2-256-cert-v01@openssh.com,rsa-sha2-512,rsa-sha2-256
 PubkeyAuthOptions		touch-required
 PubkeyAuthentication		yes
 RekeyLimit			default 3600

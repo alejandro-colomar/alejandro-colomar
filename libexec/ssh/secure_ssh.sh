@@ -1,5 +1,5 @@
 #!/bin/bash
-set -Eeo pipefail
+set -Eeo pipefail;
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
 ##	SPDX-License-Identifier:  GPL-2.0-only				      ##
@@ -10,7 +10,6 @@ set -Eeo pipefail
 ##	source								      ##
 ################################################################################
 .	/usr/local/src/server/lib/libalx/sh/sysexits.sh;
-.	/usr/local/src/server/etc/server/ssh.sh;
 
 
 ################################################################################
@@ -22,16 +21,6 @@ ARGC=0;
 ################################################################################
 ##	functions							      ##
 ################################################################################
-function sshd_config()
-{
-	local	key="$1";
-	local	val="$2";
-	local	file="/etc/ssh/sshd_config";
-
-	echo "	SSHD	config";
-	/usr/local/libexec/libalx/config_file.sh "${key}" "${val}" "${file}";
-
-}
 
 
 ################################################################################
@@ -39,12 +28,11 @@ function sshd_config()
 ################################################################################
 function main()
 {
-	sshd_config	'PermitEmptyPasswords'		'no';
-	sshd_config	'PermitRootLogin'		'no';
-	sshd_config	'PasswordAuthentication'	'no';
-	sshd_config	'AllowUsers'			"${ssh_allow_users}";
-	sshd_config	'PubkeyAuthentication'		'yes';
-	systemctl restart sshd;
+	cp --remove-destination -vT					\
+		/usr/local/src/server/etc/ssh/sshd_config		\
+		/etc/ssh/sshd_config;
+
+	service ssh restart;
 }
 
 

@@ -15,7 +15,7 @@ on:
         -
             main
 jobs:
-    sshd:
+    sshd_config:
         runs-on: ubuntu-20.04
         steps:
         -
@@ -37,6 +37,28 @@ jobs:
             name: service ssh restart
             run: docker exec test service ssh restart;
         -
-            name: service ssh status
+            name: 'TEST: service ssh status'
+            run: docker exec test service ssh status | grep "sshd is running";
+    sshd-scripts:
+        needs: sshd_config
+        runs-on: ubuntu-20.04
+        steps:
+        -
+            name: checkout
+            uses: actions/checkout@v2
+        -
+            name: docker-run
+            run: docker run -dt --name test ubuntu:20.04;
+        -
+            name: cp repo
+            run: docker cp ./ test:/usr/local/src/server/;
+        -
+            name: ./bin/install_basic.sh
+            run: docker exec test /usr/local/src/server/bin/install_basic.sh;
+        -
+            name: ./libexec/ssh/secure_ssh.sh
+            run: docker exec test /usr/local/src/server/libexec/ssh/secure_ssh.sh;
+        -
+            name: 'TEST: service ssh status'
             run: docker exec test service ssh status | grep "sshd is running";
 ################################################################################

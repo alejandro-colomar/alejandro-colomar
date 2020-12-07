@@ -1,6 +1,5 @@
 #!/bin/bash
 set -Eeo pipefail;
-set +x;
 ##	./bin/setup_ssh.sh
 ################################################################################
 ##	Copyright (C) 2020	  Alejandro Colomar Andrés		      ##
@@ -65,9 +64,7 @@ function secure_ssh()
 		ssh -n ${remote} "
 			echo '${SSHPASS}'				\\
 			| sudo --stdin					\\
-				cp --remove-destination -vT		\\
-				/usr/local/src/server/etc/ssh/sshd_config \\
-				/etc/ssh/sshd_config;
+				/usr/local/src/server/libexec/ssh/secure_ssh.sh;
 		";
 	done
 }

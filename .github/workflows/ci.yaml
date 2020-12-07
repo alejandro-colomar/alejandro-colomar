@@ -12,7 +12,7 @@ on:                                                                            #
     - main                                                                     #
 jobs:                                                                          #
   sshd:                                                                        #
-    runs-on: ubuntu-18.04                                                      #
+    runs-on: ubuntu-20.04                                                      #
     steps:                                                                     #
     -                                                                          #
       name: checkout                                                           #
@@ -22,7 +22,7 @@ jobs:                                                                          #
       run: |                                                                   #
         set -x                                                                 ;
                                                                                #
-        docker run -dt --name test ubuntu:18.04                                ;
+        docker run -dt --name test ubuntu:20.04                                ;
         docker exec test apt-get update                                        ;
         docker exec test apt-get install -y openssh-server                     ;
         docker cp etc/ssh/sshd_config test:/etc/ssh                            ;

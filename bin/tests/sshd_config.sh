@@ -31,29 +31,35 @@ DK_IMG='debian:testing';
 function main()
 {
 	local	date=$(date +%F-%H-%M-%S);
-	local	dk_cont="test_${date}";
+	local	dk_cont="test_sshd_config_${date}";
+	local	log="tmp/tests/sshd_config_${date}.log";
 
-	echo "	DOCKER	run --name ${dk_cont}";
-	docker run -dt --name ${dk_cont} ${DK_IMG};
+	echo "	LOG	${log}";
+	mkdir -p $(dirname ${log});
 
-	echo '	APT-GET	update';
-	docker exec ${dk_cont} apt-get update;
+	echo "	DOCKER	run --name ${dk_cont}" | tee -a ${log};
+	docker run -dt --name ${dk_cont} ${DK_IMG} 1>>${log};
 
-	echo '	INSTALL	ssh';
+	echo '	APT-GET	update' | tee -a ${log};
+	docker exec ${dk_cont} apt-get update 1>>${log};
+
+	echo '	INSTALL	ssh' | tee -a ${log};
 	docker exec ${dk_cont}						\
-		apt-get install -y --no-install-recommends openssh-server;
+		apt-get install -y --no-install-recommends openssh-server 1>>${log};
 
-	echo '	CP	sshd_config';
-	docker cp etc/ssh/sshd_config ${dk_cont}:/etc/ssh;
+	echo '	CP	sshd_config' | tee -a ${log};
+	docker cp etc/ssh/sshd_config ${dk_cont}:/etc/ssh 1>>${log};
 
-	echo '	RESTART	ssh';
-	docker exec ${dk_cont} service ssh restart;
+	echo '	RESTART	ssh' | tee -a ${log};
+	docker exec ${dk_cont} service ssh restart 1>>${log};
 
-	echo '	TEST	ssh status';
-	docker exec ${dk_cont} service ssh status | grep 'sshd is running';
+	echo '	TEST	ssh status' | tee -a ${log};
+	docker exec ${dk_cont} service ssh status | grep 'sshd is running' 1>>${log};
 
-	echo '	DOCKER	rm';
-	docker rm -f ${dk_cont};
+	echo '	DOCKER	rm' | tee -a ${log};
+	docker rm -f ${dk_cont} 1>>${log};
+
+	echo '	OK' | tee -a ${log};
 }
 
 

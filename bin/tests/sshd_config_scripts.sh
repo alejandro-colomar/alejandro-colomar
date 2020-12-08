@@ -31,37 +31,37 @@ DK_IMG='debian:testing';
 function main()
 {
 	local	date=$(date +%F-%H-%M-%S);
-	local	dk_cont="test_${date}";
-	local	log="tmp/test_${date}.log";
+	local	dk_cont="test_sshd_config_scripts_${date}";
+	local	log="tmp/tests/sshd_config_scripts_${date}.log";
 
 	echo "	LOG	${log}";
 	mkdir -p $(dirname ${log});
 
-	echo "	DOCKER	run --name ${dk_cont}";
+	echo "	DOCKER	run --name ${dk_cont}" | tee -a ${log};
 	docker run -dt --name ${dk_cont} ${DK_IMG} 1>>${log};
 
-	echo '	CP	install_basic.sh';
+	echo '	CP	install_basic.sh' | tee -a ${log};
 	docker cp ./bin/install_basic.sh ${dk_cont}:./bin 1>>${log};
 
-	echo '	ADAPT	install_basic.sh';
+	echo '	ADAPT	install_basic.sh' | tee -a ${log};
 	docker exec ${dk_cont}						\
 		sed -i -e '/^user=/s/=.*/="root";/'			\
 		-e '/cp --remove-destination/,/\/etc\/hosts;/d'		\
 		./bin/install_basic.sh 1>>${log};
 
-	echo '	RUN	install_basic.sh';
+	echo '	RUN	install_basic.sh' | tee -a ${log};
 	docker exec ${dk_cont} ./bin/install_basic.sh 1>>${log};
 
-	echo '	RUN	libexec/ssh/secure_ssh.sh';
+	echo '	RUN	libexec/ssh/secure_ssh.sh' | tee -a ${log};
 	docker exec ${dk_cont} /usr/local/src/server/libexec/ssh/secure_ssh.sh 1>>${log};
 
-	echo '	TEST	ssh status';
+	echo '	TEST	ssh status' | tee -a ${log};
 	docker exec ${dk_cont} service ssh status | grep 'sshd is running' 1>>${log};
 
-	echo '	DOCKER	rm';
+	echo '	DOCKER	rm' | tee -a ${log};
 	docker rm -f ${dk_cont} 1>>${log};
 
-	echo '	OK';
+	echo '	OK' | tee -a ${log};
 }
 
 
